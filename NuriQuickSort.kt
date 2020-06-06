@@ -1,20 +1,22 @@
-
 /**
  * @param array : Array you want to sort
- * @param priorityCheck(pivot, target) : When "pivot" has higher priority than "target" => 1 / same : 0 / other : -1
+ * @param priorityCheck(pivot, target)
+ * When "pivot" has higher priority than "target" => 1
+ * When "pivot" has lower priority than "target" => -1
+ * "pivot" == "target" => 0
  * */
 class NuriQuickSort<T>(
-    private val array:Array<T>,
-    private val priorityCheck: (T,T) -> Int
+        private val array:Array<T>,
+        private val priorityCheck: (T,T) -> Int
 ) {
 
     fun sort(left:Int, right:Int):Array<T> {
         if(left <= right) {
-            // 배열을 둘로 나눠서 (pivot 기준으로)
+            // Divide the array in two (by pivot)
             val pivot = partition(array, left, right)
-            // 왼쪽 영역 정렬
+            // Align left area
             sort(left, pivot-1)
-            // 오른쪽 영역 정렬
+            // Align right area
             sort(pivot+1, right)
         }
 
@@ -27,19 +29,19 @@ class NuriQuickSort<T>(
         var high = right
 
         while (low <= high) {
-            // pivot보다 우선순위가 작은 값을 찾는 과정
+            // Finding values with a lower priority than pivot
             while (low <= right && priorityCheck(pivot, arr[low]) >= 0)
                 low++
 
-            // pivot보다 우선순위가 큰 값을 찾는 과정
+            // Finding values with a higher priority than pivot
             while(left < high && priorityCheck(pivot, arr[high]) <= 0)
                 high--
 
-            // low와 high가 교차되지 않았으면 서로 교환(swap)!
+            // Exchange low and high if they are not crossed
             if(low <= high)
                 swap(arr, low, high)
         }
-        // pivot과 high 교환
+        // Exchange pivot and high
         swap(arr, left, high)
 
         return high
