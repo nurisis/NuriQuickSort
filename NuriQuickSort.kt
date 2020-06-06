@@ -1,8 +1,8 @@
 /**
  * @param array : Array you want to sort
  * @param priorityCheck(pivot, target)
- * When "pivot" has higher priority than "target" => 1
- * When "pivot" has lower priority than "target" => -1
+ * When "target" has higher priority than "pivot" => 1
+ * When "target" has lower priority than "pivot" => -1
  * "pivot" == "target" => 0
  * */
 class NuriQuickSort<T>(
